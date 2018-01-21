@@ -80,7 +80,10 @@ def deployFunctionApp() {
 
 def deployWebApp(String resGroup, String dockerFilePath) {
     def appName = sh(
-            script: "az webapp list -g ${resGroup} --query [0].name | tr -d '\"'",
+            /*
+            # script: "az webapp list -g ${resGroup} --query [0].name | tr -d '\"'",
+             */
+            script: "az resource list --resource-type Microsoft.Web/sites -g ${resGroup} --query '[0].name' --output tsv",
             returnStdout: true
     ).trim()
 
